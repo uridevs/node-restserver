@@ -1,5 +1,6 @@
 const express = require('express');
-var cors = require('cors')
+var cors = require('cors');
+const { dbConnection } = require('../database/config');
 require('dotenv').config();
 
 class Server{
@@ -9,10 +10,18 @@ class Server{
         this.port = process.env.PORT;
         this.usersPath = '/api/users';
 
+        // Connect to DB
+
+        this.connectDB();
+
         // Middlewares
         this.middlewares();
         // Routes
         this.routes();
+    }
+
+    async connectDB() {
+        await dbConnection();
     }
 
     middlewares(){
@@ -25,7 +34,7 @@ class Server{
         this.app.use( express.json() );
 
         // public directory
-        
+
         this.app.use( express.static('public'));
 
     };
@@ -38,7 +47,7 @@ class Server{
 
     listen()  {
         this.app.listen(  this.port, () => {
-            console.log('Servidor corriendo en puerto:', this.port );
+            console.log('Server running in port:', this.port );
         });
     }
     
