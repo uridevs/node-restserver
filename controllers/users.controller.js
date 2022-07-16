@@ -61,9 +61,6 @@ const usersDelete = async (req, res = response) => {
 
     const { id } = req.params;
 
-    // Hard Delete from database
-    // const user = await User.findByIdAndDelete( id );
-
     const user = await User.findByIdAndUpdate(id, {state:false})
     const authUser = req.user;
 

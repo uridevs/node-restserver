@@ -42,7 +42,6 @@ const login = async (req, res = response) => {
         res.json({
             user,
             token,
-            msg: 'hola'
         })
 
     } catch (error) {
