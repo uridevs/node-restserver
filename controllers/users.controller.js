@@ -9,7 +9,7 @@ const usersGet = async (req, res = response) => {
     const {limit=5, from=0} = req.query;
     const query = {state: true};
 
-    // Use of Promise.all to send both request at the same time to reduce Time of response, instead of asking for to consts to await for each response and store it
+    // Use of Promise.all to send both request at the same time to reduce Time of response, instead of asking for consts to await for each response and store it
     const [total, users] = await Promise.all([
         User.countDocuments(query),
         User.find(query)

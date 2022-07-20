@@ -1,6 +1,7 @@
 const Role = require('../models/role');
-const User = require('../models/user');
 const mongoose = require('mongoose');
+
+const { Category, User, Product } = require('../models');
 
 // Verify if role sent to backend to register is valid
 const isRoleValid = async (role = "") => {
@@ -28,8 +29,25 @@ const userByIdExists = async ( id ) => {
         }
     }
 
+// Verify if the id provided for a category exists on DB
+const categoryExists = async ( id ) => {
+    const idExists = await Category.findById(id);
+    if ( !idExists ){
+            throw new Error(`Id: ${id} is not registed in database `)
+        }
+    }
+
+const productExists = async ( id ) => {
+    const idExists = await Product.findById(id);
+    if ( !idExists ){
+            throw new Error(`Product ID: ${id} is not registed in database `)
+        }
+    }
+
 module.exports = {
     isRoleValid,
     emailExists,
-    userByIdExists
+    userByIdExists,
+    categoryExists,
+    productExists
 }
