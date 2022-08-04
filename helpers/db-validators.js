@@ -2,6 +2,7 @@ const Role = require('../models/role');
 const mongoose = require('mongoose');
 
 const { Category, User, Product } = require('../models');
+const { collection } = require('../models/role');
 
 // Verify if role sent to backend to register is valid
 const isRoleValid = async (role = "") => {
@@ -44,10 +45,23 @@ const productExists = async ( id ) => {
         }
     }
 
+// Validate allowed collections
+
+const allowedCollections = ( collection = '', collections = [] ) => {
+    const included = collections.includes(collection);
+
+    if (!included){
+        throw new Error(`Collection ${collection} is not allowed, please choose one of the next collection: ${collections}`)
+    }
+
+    return true
+}
+
 module.exports = {
     isRoleValid,
     emailExists,
     userByIdExists,
     categoryExists,
-    productExists
+    productExists,
+    allowedCollections
 }
