@@ -150,11 +150,16 @@ const showImg = async (req, res = response) => {
 
     // Clean previous images
 
+    // if (model.img) {
+    //     const pathImg = path.join(__dirname, '../uploads', collection, model.img)
+    //     if (fs.existsSync( pathImg )){
+    //         return res.sendFile( pathImg )
+    //     }
+    // }
+
     if (model.img) {
-        const pathImg = path.join(__dirname, '../uploads', collection, model.img)
-        if (fs.existsSync( pathImg )){
-            return res.sendFile( pathImg )
-        }
+        console.log(model.img)
+        return res.json( {img: model.img} )
     }
 
     const pathDefault = path.join(__dirname, '../assets', 'no-image.jpg')
